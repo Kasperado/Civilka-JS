@@ -143,27 +143,9 @@ setInterval(gameloop, 1000/30);
 function draw() {
   background(0, 0, 127);
   context.putImageData(cellsRender, 0, 0);
-
   drawMouse();
-
-  // AStar Path
-  if (path) {
-    beginShape();
-    noFill();
-    strokeWeight(2);
-    for (let i = 0; i < path.length; i++) {
-      const cell = path[i];
-      vertex(cell.site.x, cell.site.y);
-    }
-    endShape();
-  }
-
-  strokeWeight(1);
-  stroke(255,0,0);
-  fill(255,0,0);
-  text("FPS: "+floor(frameRate()), 20, 50);
-  text("X: " + mousePos?.x, 20, 70);
-  text("Y: " + mousePos?.y, 20, 90);
+  drawPath();
+  drawUI();
 }
 
 

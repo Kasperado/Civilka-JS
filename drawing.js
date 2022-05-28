@@ -16,6 +16,28 @@ function drawConnections() {
   }
 }
 
+function drawUI() {
+  strokeWeight(1);
+  stroke(255,0,0);
+  fill(255,0,0);
+  text("FPS: "+floor(frameRate()), 20, 50);
+  text("X: " + mousePos?.x, 20, 70);
+  text("Y: " + mousePos?.y, 20, 90);
+}
+
+function drawPath() {
+  if (path) {
+    beginShape();
+    noFill();
+    strokeWeight(2);
+    for (let i = 0; i < path.length; i++) {
+      const cell = path[i];
+      vertex(cell.site.x, cell.site.y);
+    }
+    endShape();
+  }
+}
+
 function drawGeography() {
   stroke(128,128,128,128);
   strokeWeight(1);
