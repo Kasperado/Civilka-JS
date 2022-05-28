@@ -16,6 +16,18 @@ onmousemove = function(e){
       x: e.clientX,
       y: e.clientY
     };
+    // Update current cell mouse is in
+    for (let i = 0; i < game.cells.length; i++) {
+      let c = game.cells[i];
+      let isInCell = c.isPointIn(mousePos);
+      if (isInCell) {
+        mouseCell = c;
+        break;
+      } else {
+        mouseCell = null;
+      }
+    }
+    // Update path
     if (mouseCell && pathfindingStartCell) path = aStarPathfinding(cellsToSearch, pathfindingStartCell, mouseCell);
 }
 
@@ -28,6 +40,7 @@ onmousedown = function(e) {
     }
     pathfindingStartCell = mouseCell;
     cellsToSearch = (pathfindingStartCell.type == CellType.OCEAN) ? game.waterCells : game.landCells;
+    if (mouseCell && pathfindingStartCell) path = aStarPathfinding(cellsToSearch, pathfindingStartCell, mouseCell);
   } 
 }
 var mouseCell = null;

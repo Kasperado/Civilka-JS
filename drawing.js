@@ -130,22 +130,17 @@ function drawWasteland() {
 }
 
 function drawMouse() {
-  for (var i = 0; i < game.cells.length; i++) {
-    let c = game.cells[i];
-    let isInCell = c.isPointIn(mousePos);
-    if (isInCell) {
-      mouseCell = c;
-      for (var j = 0; j < c.neighbors.length; j++) {
-        let n = c.neighbors[j].site;
-        strokeWeight(2);
-        stroke(128,128,128);
-        line(c.site.x, c.site.y, n.x, n.y);
-      }
-      strokeWeight(1);
-      stroke("red");
-      fill("red");
-      text("Cell ID: " + i, 20, 20);
+  if (mouseCell) {
+    for (let j = 0; j < c.neighbors.length; j++) {
+      let n = c.neighbors[j].site;
+      strokeWeight(2);
+      stroke(128,128,128);
+      line(c.site.x, c.site.y, n.x, n.y);
     }
+    strokeWeight(1);
+    stroke("red");
+    fill("red");
+    text("Cell ID: " + i, 20, 20);
   }
 }
 
