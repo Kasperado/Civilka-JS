@@ -142,6 +142,7 @@ function draw() {
   background(0, 0, 127);
   context.putImageData(cellsRender, 0, 0);
   drawMouse();
+  drawPathfindingStartCell();
   drawPath();
   drawUI();
 }

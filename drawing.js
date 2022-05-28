@@ -25,10 +25,26 @@ function drawUI() {
   text("Y: " + mousePos?.y, 20, 90);
 }
 
+function drawPathfindingStartCell() {
+  if (pathfindingStartCell == null) return;
+  // Edge color
+  stroke("red");
+  // Background
+  fill(255, 0, 0, 120);
+  beginShape();
+  for (var y = 0; y < pathfindingStartCell.vertices.length; y++) {
+    let p = pathfindingStartCell.vertices[y];
+    vertex(p.site.x, p.site.y);
+  }
+  endShape(CLOSE);
+}
+
+
 function drawPath() {
   if (path) {
     beginShape();
     noFill();
+    stroke("red");
     strokeWeight(2);
     for (let i = 0; i < path.length; i++) {
       const cell = path[i];
