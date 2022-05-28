@@ -9,8 +9,6 @@ class Game {
     this.provinces = [];
     this.nations = [];
     this.nationCounter = 0;
-    this.cultures = [];
-    this.cultureCounter = 0;
     this.wasteland; // Nation with all impassable terrain
     // Render
     this.needRenderUpdate = false;

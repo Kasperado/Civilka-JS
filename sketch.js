@@ -1,21 +1,3 @@
-/*
-Perfect map creation steps:
-1.1 Generate points
-1.2 Generate Voronoi
-2.1 Decide which points will be used for landmass
-2.2 Remove ocean points and generate them again but with higher minimum distance
-2.3 ReGenerate Voronoi and landmass
-6.0 Generate geography
-6.1 Generate mountain ranges and hills
-6.2 Normalize Height Distribution [OPTIONAL]
-6.3 Create rivers
-7.1 Generate civs in 'possible' places
-7.2 Generate history if starting in later era [OPTIONAL]
-
-AI Gameloop:
-Every week or so re-evaluation of strategy will take place
-
-*/
 var game = new Game();
 var middlePos;
 var voronoi = new Voronoi();
@@ -86,7 +68,6 @@ function setup() {
     createProvinces(game.landCells);
     createGeography();
     assignGeography();
-
     // Vonoroi library bug (?)
     for (let i = 0; i < game.vertices.length; i++) {
       let vertex = game.vertices[i];
@@ -104,7 +85,6 @@ function setup() {
         vertex.site.y = vertex.site.y/2 + newY/2;
       }
     }
-
     // Spawn nations in random provinces
     //spawnNations(10, minDistance*2, 1);
     // Render to store

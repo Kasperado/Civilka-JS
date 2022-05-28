@@ -87,7 +87,6 @@ function generatePoissonDistribution(boxSize, minDistance, maxTries, boundaryOff
 function createLandmass() {
   let rpPos, polygonSize, randomPolygon;
   // Create
-  //
   rpPos = createVector(middlePos.x, middlePos.y);
   polygonSize = {
     w: mapSize.height*0.8,

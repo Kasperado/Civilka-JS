@@ -1,4 +1,3 @@
-
 function drawCells() {
   for (let i = 0; i < game.cells.length; i++) {
     let cell = game.cells[i];

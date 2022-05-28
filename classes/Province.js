@@ -6,28 +6,10 @@ class Province {
 
     this.owner = null; // Nation
     this.neighbors = [];
-    /*
-    // General
-    Population
-    Size (poly size?)
-    Development value
-    
-    // Economy
-
-    // Culture
-
-    // Combat
-
-    
-
-    */
-    
     // Location
     this.elevation;
     this.temperature;
     this.humidity;
-    // Buildings
-    this.buildings = [];
   }
 
   setOwner(nation) {

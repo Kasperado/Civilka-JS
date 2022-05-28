@@ -2,12 +2,9 @@ class Nation {
   constructor() {
     this.id;
     this.game;
-    this.name;
-    this.nameAdjective;
     this.capital;
     this.provinces = [];
     this.borders = []; // Array of edges which make border
-    this.mainCulture;
     this.color;
     this.relations = [];
     // Test zone 
