@@ -26,29 +26,27 @@ let randomPolygons = [];
 // Mouse position
 var mousePos;
 let path = [];
+let pathfindingStartCell;
+let cellsToSearch;
+
 onmousemove = function(e){
     mousePos = {
       x: e.clientX,
       y: e.clientY
     };
-    if (mouseCell) path = aStarPathfinding(game.waterCells, game.cells[0], mouseCell);
+    if (mouseCell && pathfindingStartCell) path = aStarPathfinding(cellsToSearch, pathfindingStartCell, mouseCell);
 }
 
 onmousedown = function(e) {
   if (mouseCell) {
-    if (mouseCell.type == CellType.OCEAN) { // To land
-      mouseCell.type = CellType.LAND;
-      let index = game.waterCells.findIndex((element) => element.id == mouseCell.id);
-      game.waterCells.splice(index, 1);
-      game.landCells.push(mouseCell);
-    } else {
-      mouseCell.type = CellType.OCEAN;
-      let index = game.landCells.findIndex((element) => element.id == mouseCell.id);
-      game.landCells.splice(index, 1);
-      game.waterCells.push(mouseCell);
+    // Same cell selected = disable pathfinding by setting pathfindingStartCell to null
+    if (mouseCell?.id == pathfindingStartCell?.id) {
+      pathfindingStartCell = null;
+      return;
     }
-    updateRender();
-  }
+    pathfindingStartCell = mouseCell;
+    cellsToSearch = (pathfindingStartCell.type == CellType.OCEAN) ? game.waterCells : game.landCells;
+  } 
 }
 var mouseCell = null;
 const mapSize = {
@@ -89,6 +87,7 @@ function setup() {
     createGeography();
     assignGeography();
 
+    // Vonoroi library bug (?)
     for (let i = 0; i < game.vertices.length; i++) {
       let vertex = game.vertices[i];
       let number = vertex.cells.length;
@@ -110,8 +109,7 @@ function setup() {
     //spawnNations(10, minDistance*2, 1);
     // Render to store
     updateRender();
-    console.log(game);    
-
+    console.log(game);  
 }
 
 function updateRender() {
