@@ -23,32 +23,6 @@ class Cell {
       vertex(p.site.x, p.site.y);
     }
     endShape(CLOSE);
-    // Curvy edges
-    /*
-    strokeWeight(2);
-    for (var i = 0; i < this.edges.length; i++) {
-      let edge = this.edges[i];
-      let vas = edge.va.site;
-      let vbs = edge.vb.site;
-      let xDist = vbs.x - vas.x;
-      let yDist = vbs.y - vas.y;
-      let dist = Math.sqrt(xDist * xDist + yDist * yDist);
-      // Break the 2 main vertices into smaller ones
-      let amount = 4;
-      beginShape();
-      curveVertex(vas.x, vas.y);
-      for (var j = 0; j < amount; j++) {
-        let fractionOfTotal = (((j+1)/amount)*dist) / dist;
-        console.log(fractionOfTotal);
-        let fractionX = vas.x + xDist * fractionOfTotal;
-        let fractionY = vas.y + yDist * fractionOfTotal;
-        curveVertex(fractionX+random(-0.5,0.5), fractionY+random(-0.5,0.5));
-      }
-      curveVertex(vbs.x, vbs.y);
-      endShape(CLOSE);
-    }
-    */
-
     // Point
     strokeWeight(1);
     stroke(255);
