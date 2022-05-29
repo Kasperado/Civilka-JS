@@ -2,7 +2,6 @@ var game = new Game();
 var middlePos;
 var voronoi = new Voronoi();
 var diagram;
-var allConnections;
 // Generate
 let randomPolygons = [];
 // Mouse position
@@ -10,6 +9,16 @@ var mousePos;
 let path = [];
 let pathfindingStartCell;
 let cellsToSearch;
+// User chooses what to render
+let optionDrawCells = true;
+let optionDrawGeography = false;
+let optionDrawRivers = true;
+let optionDrawConnections = false;
+let optionDrawWasteland = false;
+let optionDrawNations = false;
+let optionDrawPolygons = false;
+let optionDrawHeight = false;
+var allConnections;
 
 onmousemove = function(e){
     mousePos = {
@@ -99,23 +108,25 @@ function setup() {
       }
     }
     // Spawn nations in random provinces
-    //spawnNations(10, minDistance*2, 1);
+    spawnNations(10, minDistance*2, 10);
     // Render to store
     updateRender();
-    console.log(game);  
+    // Load default options
+    loadDefaultOptions();  
 }
 
 function updateRender() {
-  drawCells();
-  drawRivers();
-  drawConnections();
-  //drawGeography();
-  //drawWasteland();
-  drawNations();
-  drawNationsBorders();
-  //drawPolygons();
-  //drawHeight();
-  cellsRender = context.getImageData(0,0,canvasElement.width,canvasElement.height);
+  background(255);
+  if (optionDrawCells) drawCells();
+  if (optionDrawGeography) drawGeography();
+  if (optionDrawRivers) drawRivers();
+  if (optionDrawConnections) drawConnections();
+  if (optionDrawWasteland) drawWasteland();
+  if (optionDrawNations) drawNations();
+  if (optionDrawPolygons) drawPolygons();
+  if (optionDrawHeight) drawHeight();
+  // Store render for later
+  cellsRender = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
   // Reset
   game.needRenderUpdate = false;
 }
@@ -129,12 +140,11 @@ function gameloop() {
   if (game.needRenderUpdate) updateRender();
 }
 
-setInterval(gameloop, 1000/30);
+//setInterval(gameloop, 1000/30);
 
 function draw() {
   background(0, 0, 127);
   context.putImageData(cellsRender, 0, 0);
-  drawMouse();
   drawPathfindingStartCell();
   drawPath();
   drawUI();

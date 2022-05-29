@@ -22,6 +22,7 @@ function drawUI() {
   text("FPS: "+floor(frameRate()), 20, 50);
   text("X: " + mousePos?.x, 20, 70);
   text("Y: " + mousePos?.y, 20, 90);
+  if (mouseCell) text("Cell ID: " + mouseCell.id, 20, 20);
 }
 
 function drawPathfindingStartCell() {
@@ -82,15 +83,13 @@ function drawNations() {
     stroke(255);
     point(nation.capital.cell.site.x, nation.capital.cell.site.y);
   }
-}
-
-function drawNationsBorders() {
+  // Draw Nation Borders
   for (var i = 0; i < game.nations.length; i++) {
     let nation = game.nations[i];
     for (var j = 0; j < nation.borders.length; j++) {
       let b = nation.borders[j];
       strokeWeight(2);
-      // Color - I darken nation color
+      // Color - darken nation color
       let borderColor = adjust(nation.color, -100);
       //// TODO: move this bad boy to some init function
       // Line - I need to move the line closer the province middle
@@ -123,24 +122,10 @@ function adjust(color, amount) {
 }
 
 function drawWasteland() {
+  if (game.wasteland == null) return;
   for (var j = 0; j < game.wasteland.provinces.length; j++) {
     let province = game.wasteland.provinces[j];
     province.cell.render(game.wasteland.color);
-  }
-}
-
-function drawMouse() {
-  if (mouseCell) {
-    for (let j = 0; j < c.neighbors.length; j++) {
-      let n = c.neighbors[j].site;
-      strokeWeight(2);
-      stroke(128,128,128);
-      line(c.site.x, c.site.y, n.x, n.y);
-    }
-    strokeWeight(1);
-    stroke("red");
-    fill("red");
-    text("Cell ID: " + i, 20, 20);
   }
 }
 

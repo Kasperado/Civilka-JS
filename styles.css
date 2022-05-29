@@ -1,0 +1,39 @@
+.main_container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.main_container .options {
+    margin-left: 10px;
+}
+
+.main_container .options .option {
+    padding: 5px;
+    display: flex;
+    align-content: center;
+}
+
+.main_container p {
+    font-size: 30px;
+    font-weight: bold;
+    margin: auto;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    margin-right: 5px;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+}
+
+input[type="checkbox"]:checked {
+    background-color: green;
+}
+  

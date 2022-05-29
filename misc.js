@@ -265,3 +265,29 @@ function getAStarPath(node) {
   }
   return path;
 }
+
+function loadDefaultOptions() {
+  if (optionDrawCells) document.getElementsByName("Cells")[0].checked = true;
+  document.getElementsByName("Cells")[0].onclick = () => { optionDrawCells = !optionDrawCells; updateRender(); };
+
+  if (optionDrawGeography) document.getElementsByName("Cell Height")[0].checked = true;
+  document.getElementsByName("Cell Height")[0].onclick = () => { optionDrawGeography = !optionDrawGeography; updateRender(); }
+
+  if (optionDrawRivers) document.getElementsByName("Rivers")[0].checked = true;
+  document.getElementsByName("Rivers")[0].onclick = () => { optionDrawRivers = !optionDrawRivers; updateRender(); }
+
+  if (optionDrawConnections) document.getElementsByName("Cell Connections")[0].checked = true;
+  document.getElementsByName("Cell Connections")[0].onclick = () => { optionDrawConnections = !optionDrawConnections; updateRender(); }
+
+  if (optionDrawWasteland) document.getElementsByName("Wasteland")[0].checked = true;
+  document.getElementsByName("Wasteland")[0].onclick = () => { optionDrawWasteland = !optionDrawWasteland; updateRender(); }
+
+  if (optionDrawNations) document.getElementsByName("Nations")[0].checked = true;
+  document.getElementsByName("Nations")[0].onclick = () => { optionDrawNations = !optionDrawNations; updateRender(); }
+
+  if (optionDrawPolygons) document.getElementsByName("Landmass Polygons")[0].checked = true;
+  document.getElementsByName("Landmass Polygons")[0].onclick = () => { optionDrawPolygons = !optionDrawPolygons; updateRender(); }
+  
+  if (optionDrawHeight) document.getElementsByName("Vertices Height Value")[0].checked = true;
+  document.getElementsByName("Vertices Height Value")[0].onclick = () => { optionDrawHeight = !optionDrawHeight; updateRender(); }
+}
