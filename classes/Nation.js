@@ -67,7 +67,7 @@ class Nation {
         // Not owned
         if (neighbor.owner !== null) continue;
         // Administrative reach
-        let distance = distanceBetweenTwoPoints(this.capital.cell.site.x, this.capital.cell.site.y, neighbor.cell.site.x, neighbor.cell.site.y);
+        let distance = dist(this.capital.cell.site.x, this.capital.cell.site.y, neighbor.cell.site.x, neighbor.cell.site.y);
         if (distance > this.administrativeReach) continue;
         // All good
         this.addProvince(neighbor);
@@ -97,7 +97,7 @@ class Nation {
       }
       if (!nValid) continue;
       // Not too close not too far
-      let distance = distanceBetweenTwoPoints(this.capital.cell.site.x, this.capital.cell.site.y, province.cell.site.x, province.cell.site.y);
+      let distance = dist(this.capital.cell.site.x, this.capital.cell.site.y, province.cell.site.x, province.cell.site.y);
       if (distance > 40) continue;
       // Land route
 
@@ -121,7 +121,7 @@ class Nation {
     let closestDistance = 9999; // // TODO:
     for (var i = 0; i < active.length; i++) {
       let province = active[i];
-      let distance = distanceBetweenTwoPoints(capital.site.x, capital.site.y, province.cell.site.x, province.cell.site.y);
+      let distance = dist(capital.site.x, capital.site.y, province.cell.site.x, province.cell.site.y);
       if (distance < closestDistance) {
         closestIndex = i;
         closestDistance = distance;

@@ -38,12 +38,6 @@ function extractGeneratorData(gen) {
     return data;
 }
 
-function distanceBetweenTwoPoints(x1, y1, x2, y2) {
-  var a = x1 - x2;
-  var b = y1 - y2;
-  return Math.sqrt(a*a + b*b);
-}
-
 function sortVertices(cell, vertices) {
   let cx = cell.site.x;
   let cy = cell.site.y;
@@ -234,10 +228,10 @@ function aStarPathfinding(validCells, startCell, targetCell) {
       if (processedNodes.includes(neighbor)) continue; // No need to process it again
       // Start calucations
       let isInActive = activeNodes.includes(neighbor);
-      let startScore = currentNode.distanceToStart + distanceBetweenTwoPoints(currentNode.cell.site.x, currentNode.cell.site.y, neighbor.cell.site.x, neighbor.cell.site.y);
+      let startScore = currentNode.distanceToStart + dist(currentNode.cell.site.x, currentNode.cell.site.y, neighbor.cell.site.x, neighbor.cell.site.y);
       if (!isInActive || startScore < neighbor.distanceToStart) {
         neighbor.distanceToStart = startScore;
-        neighbor.distanceToTarget = distanceBetweenTwoPoints(neighbor.cell.site.x, neighbor.cell.site.y, targetCell.site.x, targetCell.site.y);
+        neighbor.distanceToTarget = dist(neighbor.cell.site.x, neighbor.cell.site.y, targetCell.site.x, targetCell.site.y);
         neighbor.cameFrom = currentNode;
         if (!isInActive) activeNodes.push(neighbor);
       }

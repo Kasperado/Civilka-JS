@@ -221,7 +221,7 @@ function spawnNations(number, mDis, pLimit) {
     let minDistance = mDis;
     for (var i = 0; i < game.nations.length; i++) {
       let nation = game.nations[i];
-      let distance = distanceBetweenTwoPoints(province.cell.site.x, province.cell.site.y, nation.capital.cell.site.x, nation.capital.cell.site.y);
+      let distance = dist(province.cell.site.x, province.cell.site.y, nation.capital.cell.site.x, nation.capital.cell.site.y);
       if (distance < minDistance) {
         isTooClose = true;
         break;
@@ -287,7 +287,7 @@ function closestActiveToCapital(active) {
   let closestDistance = 9999; // // TODO:
   for (var i = 0; i < active.length; i++) {
     let province = active[i];
-    let distance = distanceBetweenTwoPoints(capital.site.x, capital.site.y, province.cell.site.x, province.cell.site.y);
+    let distance = dist(capital.site.x, capital.site.y, province.cell.site.x, province.cell.site.y);
     if (distance < closestDistance) {
       closestIndex = i;
       closestDistance = distance;
