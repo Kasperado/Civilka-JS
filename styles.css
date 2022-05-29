@@ -1,10 +1,12 @@
 .main_container {
     display: flex;
     justify-content: flex-start;
+    user-select: none;
 }
 
 .main_container .options {
     margin-left: 10px;
+    margin-top: 10px;
 }
 
 .main_container .options .option {
@@ -14,7 +16,7 @@
 }
 
 .main_container p {
-    font-size: 30px;
+    font-size: 1.8rem;
     font-weight: bold;
     margin: auto;
 }
@@ -26,14 +28,18 @@ input[type="checkbox"] {
     margin-right: 5px;
     font: inherit;
     color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
-    border: 0.15em solid currentColor;
-    border-radius: 0.15em;
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 2px solid currentColor;
+    border-radius: 2px;
     transform: translateY(-0.075em);
 }
 
 input[type="checkbox"]:checked {
-    background-color: green;
+    background-color: black;
+}
+
+.pathfinding_tip {
+   font-size: 1.2rem;
 }
   

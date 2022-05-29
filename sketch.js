@@ -54,7 +54,7 @@ onmousedown = function(e) {
 }
 var mouseCell = null;
 const mapSize = {
-  width: 1400,
+  width: 1200,
   height: 800
 };
 var selectedCell;
@@ -122,9 +122,9 @@ function updateRender() {
   drawCells(); // Special case, resolved in Cell.render()
   if (optionDrawGeography) drawGeography();
   if (optionDrawRivers) drawRivers();
-  if (optionDrawConnections) drawConnections();
   if (optionDrawWasteland) drawWasteland();
   if (optionDrawNations) drawNations();
+  if (optionDrawConnections) drawConnections();
   if (optionDrawPolygons) drawPolygons();
   if (optionDrawHeight) drawHeight();
   // Store render for later

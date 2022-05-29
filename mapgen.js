@@ -90,9 +90,9 @@ function createLandmass() {
   rpPos = createVector(middlePos.x, middlePos.y);
   polygonSize = {
     w: mapSize.height*0.8,
-    h: mapSize.height*0.4
+    h: mapSize.height*0.35
   }
-  randomPolygon = generateRandomPolygon(24, rpPos, polygonSize, 0.7, 0.0);
+  randomPolygon = generateRandomPolygon(24, rpPos, polygonSize, 0.7, 0.1);
   randomPolygons.push(randomPolygon);
 }
 
@@ -300,7 +300,7 @@ function wastelandTest(province) {
   // If province surrouded by mountains?
   let isSurrouded = true;
   let edges = province.cell.edges;
-  let heightLimit = 200;
+  let heightLimit = 20;
   // If one edge is open, then it's not
   for (var i = 0; i < edges.length; i++) {
     let edge = edges[i];

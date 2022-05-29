@@ -182,8 +182,8 @@ class Node {
   }
 
   getCost() {
-    // Counting only distance from start would create Dijkstra path, but it has big performance hit.
-    // Counting only distance to target is fastest, but paths created are often sub-optimal.
+    // Counting only distance from start would create Dijkstra path.
+    // Counting only distance to target would create Greedy Best-first search.
     return this.distanceToStart + this.distanceToTarget;
   }
 
