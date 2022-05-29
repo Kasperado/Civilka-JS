@@ -13,6 +13,7 @@ class Cell {
     // Edge color
     strokeWeight(2);
     stroke(60);
+    if (!optionDrawCells) stroke(color);
     // Background
     fill(color);
     beginShape();
@@ -51,6 +52,7 @@ class Cell {
     // Point
     strokeWeight(1);
     stroke(255);
+    if (!optionDrawCells) stroke(color);
     point(this.site.x, this.site.y);
   }
 

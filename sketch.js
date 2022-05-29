@@ -116,8 +116,10 @@ function setup() {
 }
 
 function updateRender() {
+  // Reset background
   background(255);
-  if (optionDrawCells) drawCells();
+  // Render options
+  drawCells(); // Special case, resolved in Cell.render()
   if (optionDrawGeography) drawGeography();
   if (optionDrawRivers) drawRivers();
   if (optionDrawConnections) drawConnections();
