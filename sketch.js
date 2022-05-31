@@ -64,6 +64,8 @@ var context;
 var cellsRender;
 
 function setup() {
+    // Performace
+    let startTime = performance.now();
     // Setup
     createCanvas(mapSize.width, mapSize.height);
     middlePos = createVector(mapSize.width/2, mapSize.height/2);
@@ -90,29 +92,15 @@ function setup() {
     createProvinces(game.landCells);
     createGeography();
     assignGeography();
-    // Vonoroi library bug (?)
-    for (let i = 0; i < game.vertices.length; i++) {
-      let vertex = game.vertices[i];
-      let number = vertex.cells.length;
-      // 1 are corners and bug?
-      if (number == 1) {
-        console.log(vertex);
-      }
-      // 2 are map boundaries
-      // 3 to be fixed
-      if (number == 3) {
-        let newX = (vertex.cells[0].site.x + vertex.cells[1].site.x + vertex.cells[2].site.x) / 3;
-        let newY = (vertex.cells[0].site.y + vertex.cells[1].site.y + vertex.cells[2].site.y) / 3;
-        vertex.site.x = vertex.site.x/2 + newX/2;
-        vertex.site.y = vertex.site.y/2 + newY/2;
-      }
-    }
     // Spawn nations in random provinces
     spawnNations(10, minDistance*2, 10);
     // Render to store
     updateRender();
     // Load default options
-    loadDefaultOptions();  
+    loadDefaultOptions();
+    // Performace
+    let endTime = performance.now()
+    console.log(`Generation and inital render took ${floor(endTime - startTime)} milliseconds`);
 }
 
 function updateRender() {
@@ -132,17 +120,6 @@ function updateRender() {
   // Reset
   game.needRenderUpdate = false;
 }
-
-function gameloop() {
-  // AI update
-  for (let i = 0; i < game.nations.length; i++) {
-    game.nations[i].update();
-  }
-  // Render game
-  if (game.needRenderUpdate) updateRender();
-}
-
-//setInterval(gameloop, 1000/30);
 
 function draw() {
   background(0, 0, 127);

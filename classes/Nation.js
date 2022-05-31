@@ -7,8 +7,6 @@ class Nation {
     this.borders = []; // Array of edges which make border
     this.color;
     this.relations = [];
-    // Test zone 
-    this.administrativeReach = 30;
   }
 
   addProvince(province) {
@@ -47,13 +45,6 @@ class Nation {
       }
     }
   }
-  //  
-  update() {
-    let count = this.provinces.length / 10;
-    let rng = random();
-    if (rng > (0.2 + count)) this.expand();
-    else this.settle();
-  }
   // Finds province nearby and adds it to the civ
   expand() {
     let addedProvince = false;
@@ -66,9 +57,6 @@ class Nation {
         let neighbor = randProvince.neighbors[j];
         // Not owned
         if (neighbor.owner !== null) continue;
-        // Administrative reach
-        let distance = dist(this.capital.cell.site.x, this.capital.cell.site.y, neighbor.cell.site.x, neighbor.cell.site.y);
-        if (distance > this.administrativeReach) continue;
         // All good
         this.addProvince(neighbor);
         addedProvince = true;
@@ -77,7 +65,6 @@ class Nation {
       // This randProvince is used
       validProvinces.splice(randProvinceIndex, 1);
       // All valid options exhausted
-      if (validProvinces == 0) this.administrativeReach++;
       if (validProvinces == 0) break;
     }
   }

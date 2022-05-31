@@ -203,14 +203,14 @@ function spawnNations(number, mDis, pLimit) {
   let nationsToSpawnCounter = nationsToSpawn;
   // Create wasteland for storing impassable terrain
   let nationwasteland = new Nation();
-  nationwasteland.color = "Black";
+  nationwasteland.color = "#212121";
   game.wasteland = nationwasteland;
   // Populate wasteland
   for (let i = 0; i < game.provinces.length; i++) {
     const province = game.provinces[i];
     if (wastelandTest(province)) game.wasteland.addProvince(province);
   }
-  // Spawn nations in random province
+  // Spawn nations in random provinces
   while (nationsToSpawnCounter != 0) {
     let rn = floor(random(0, game.provinces.length - 1));
     let province = game.provinces[rn];
@@ -297,12 +297,12 @@ function closestActiveToCapital(active) {
 }
 
 function wastelandTest(province) {
-  // If province surrouded by mountains?
+  // If province surrounded by mountains?
   let isSurrouded = true;
   let edges = province.cell.edges;
   let heightLimit = 20;
   // If one edge is open, then it's not
-  for (var i = 0; i < edges.length; i++) {
+  for (let i = 0; i < edges.length; i++) {
     let edge = edges[i];
     if (edge.va.height < heightLimit && edge.vb.height < heightLimit) {
       isSurrouded = false;
