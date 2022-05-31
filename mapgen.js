@@ -241,59 +241,11 @@ function spawnNations(number, mDis, pLimit) {
     nationsToSpawnCounter--;
   }
   // Populate nations with provinces
-  let activeList = [];
-  for (var i = 0; i < nationsToSpawn; i++) {
-    activeList[i] = [];
-    activeList[i].push(game.nations[i].provinces[0]);
-  }
-  // Each loop assign one province to the nation
-  let provinceLimit = pLimit;
-  while (activeList.length > 0) {
-    let isEmpty = -1;
-    for (var i = 0; i < activeList.length; i++) {
-      findNextProvince(activeList[i]);
-      let outOfPlaces = (activeList[i].length == 0);
-      let isAtProvinceLimit = (outOfPlaces) ? false : (activeList[i][0].owner.provinces.length >= provinceLimit);
-      if (outOfPlaces || isAtProvinceLimit) {
-        isEmpty = i;
-        break;
-      }
-    }
-    if (isEmpty != -1) activeList.splice(isEmpty, 1);
-  }
-}
-
-function findNextProvince(active) {
-    // Choose random active province
-    let randProvinceIndex = closestActiveToCapital(active);
-    let randProvince = active[randProvinceIndex];
-    let randProvinceNation = randProvince.owner;
-    let foundNextOne = false;
-    for (var j = 0; j < randProvince.neighbors.length; j++) {
-      let neighbor = randProvince.neighbors[j];
-      if (neighbor.owner !== null) continue;
-      randProvinceNation.addProvince(neighbor);
-      active.push(neighbor);
-      foundNextOne = true;
-      break;
-    }
-    // Check if new neighbor was found
-    if (!foundNextOne) active.splice(randProvinceIndex, 1);
-}
-
-function closestActiveToCapital(active) {
-  let capital = active[0].owner.capital.cell;
-  let closestIndex = 0;
-  let closestDistance = 9999; // // TODO:
-  for (var i = 0; i < active.length; i++) {
-    let province = active[i];
-    let distance = dist(capital.site.x, capital.site.y, province.cell.site.x, province.cell.site.y);
-    if (distance < closestDistance) {
-      closestIndex = i;
-      closestDistance = distance;
+  for (let p = 0; p < (pLimit - 1); p++) {
+    for (let i = 0; i < game.nations.length; i++) {
+      game.nations[i].expand();
     }
   }
-  return closestIndex;
 }
 
 function wastelandTest(province) {
