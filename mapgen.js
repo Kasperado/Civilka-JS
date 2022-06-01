@@ -121,7 +121,7 @@ function generateRandomPolygon(numberOfCorners, centerPos, polygonSize, pointJit
     let startPos = createVector(centerPos.x, centerPos.y);
     if (!isBox) {
       let minusPI = angle - Math.PI;
-      let stregthPI = Math.abs(minusPI)/Math.PI;
+      let stregthPI = Math.abs(minusPI)/Math.PI - 0.5;
       // Get range
       let fakeVec = p5.Vector.fromAngle(0);
       let fakePos = createVector(centerPos.x, centerPos.y);
@@ -133,7 +133,7 @@ function generateRandomPolygon(numberOfCorners, centerPos, polygonSize, pointJit
         let additionalRange = increase * stregthPI;
         startPos.x += additionalRange;
       } else {
-
+        // TODO
       }
     }
     p.setMag(m); // Move in m direction
