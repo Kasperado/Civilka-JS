@@ -109,9 +109,9 @@ function updateRender() {
   // Render options
   drawCells(); // Special case, resolved in Cell.render()
   if (optionDrawGeography) drawGeography();
-  if (optionDrawRivers) drawRivers();
   if (optionDrawWasteland) drawWasteland();
   if (optionDrawNations) drawNations();
+  if (optionDrawRivers) drawRivers();
   if (optionDrawConnections) drawConnections();
   if (optionDrawPolygons) drawPolygons();
   if (optionDrawHeight) drawHeight();
