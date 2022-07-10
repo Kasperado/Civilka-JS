@@ -89,8 +89,8 @@ function createLandmass() {
   // Create
   rpPos = createVector(middlePos.x, middlePos.y);
   polygonSize = {
-    w: mapSize.height*0.8,
-    h: mapSize.height*0.35
+    w: mapSize.width*0.7,
+    h: mapSize.height*0.6
   }
   randomPolygon = generateRandomPolygon(24, rpPos, polygonSize, 0.7, 0.1);
   randomPolygons.push(randomPolygon);
@@ -98,55 +98,54 @@ function createLandmass() {
 
 // Generate new polygon by creating points around center and them appling some jitter
 function generateRandomPolygon(numberOfCorners, centerPos, polygonSize, pointJitter, angleJitter) {
+  // Adjustment for futher calculations
+  polygonSize.w /= 2;
+  polygonSize.h /= 2;
   // Setup
-  let pi = Math.PI;
   let angle = 0;
-  let angleStep = (pi*2)/numberOfCorners;
+  let angleStep = (Math.PI * 2) / numberOfCorners;
   let randomPolyPoints = [];
-  // Check size and if not box, then asses which dimension is bigger
-  let isBox = (polygonSize.w == polygonSize.h);
-  let isWidthBigger;
+  // Which dimension is bigger
+  let isWidthBigger = (polygonSize.w > polygonSize.h);
   let biggerDimensionMultiplier;
-  if (!isBox) {
-    isWidthBigger = (polygonSize.w > polygonSize.h);
-    if (isWidthBigger) biggerDimensionMultiplier = 1 + (((polygonSize.w / polygonSize.h) - 1) / 2);
-    else biggerDimensionMultiplier = 1 + (((polygonSize.h / polygonSize.w) - 1) / 2);
-  }
-  let smallerDimension = (isBox) ? polygonSize.w : (isWidthBigger ? polygonSize.h : polygonSize.h);
+  if (isWidthBigger) biggerDimensionMultiplier = (polygonSize.w / polygonSize.h);
+  else biggerDimensionMultiplier = (polygonSize.h / polygonSize.w);
+  let power = (isWidthBigger ? polygonSize.h : polygonSize.w);
   // Calculate Random Polygon Points
   for (let i = 0; i < numberOfCorners; i++) {
-    let aja = angle + (angleJitter * random(-angleStep/2, angleStep/2));
-    let p = p5.Vector.fromAngle(aja); // Start from the middle
-    let m = smallerDimension;
-    let startPos = createVector(centerPos.x, centerPos.y);
-    if (!isBox) {
-      let minusPI = angle - Math.PI;
-      let stregthPI = Math.abs(minusPI)/Math.PI - 0.5;
-      // Get range
-      let fakeVec = p5.Vector.fromAngle(0);
-      let fakePos = createVector(centerPos.x, centerPos.y);
-      fakeVec.setMag(m); // Move in m direction
-      fakeVec.add(fakePos);
-      if (isWidthBigger) {
-        let range = fakeVec.x - startPos.x;
-        let increase = (range * biggerDimensionMultiplier) - range;
-        let additionalRange = increase * stregthPI;
-        startPos.x += additionalRange;
-      } else {
-        // TODO
-      }
+    let polyPoint = createVector(centerPos.x, centerPos.y);
+    // Fake vector
+    let minusPI = angle - Math.PI;
+    let stregthPI = (Math.abs(minusPI) / Math.PI) - 0.5;
+    let fakePos = createVector(centerPos.x, centerPos.y);
+    fakePos.add(-power, -power);
+    if (isWidthBigger) {
+      let range = fakePos.x - centerPos.x;
+      let increase = (range * biggerDimensionMultiplier) - range;
+      let additionalRange = increase * stregthPI * 2;
+      polyPoint.x += additionalRange;
+    } else {
+      let range = fakePos.y - centerPos.y;
+      let increase = (range * biggerDimensionMultiplier) - range;
+      let additionalRange = increase * stregthPI * 2;
+      polyPoint.y += additionalRange;
     }
-    p.setMag(m); // Move in m direction
-    p.add(startPos);
+    // Angle jitter
+    let trueAngle = angle + (angleJitter * random(-angleStep/2, angleStep/2));
+    let angleToAdd;
+    if (isWidthBigger) angleToAdd = createVector(Math.cos(trueAngle - Math.PI), Math.sin(trueAngle - Math.PI));
+    else angleToAdd = createVector(Math.sin(trueAngle - Math.PI), Math.cos(trueAngle - Math.PI));
+    // Move to desired location
+    polyPoint.add(angleToAdd.x * power, angleToAdd.y * power);
     // Add point jitter
-    let pja = pointJitter*smallerDimension/2;
+    let pja = pointJitter * power / 2;
     let jitterX = random(-pja, pja);
     let jitterY = random(-pja, pja);
-    p.add(jitterX, jitterY);
+    polyPoint.add(jitterX, jitterY);
     // Increase angle
     angle += angleStep;
     // Add to points array
-    randomPolyPoints.push(p);
+    randomPolyPoints.push(polyPoint);
   }
   // Calculate Random Polygon Edges
   let randomPolyEdges = [];
